@@ -3,8 +3,8 @@
     <el-col :span="24" class="warp-breadcrum">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/' }"><b>首页</b></el-breadcrumb-item>
-        <el-breadcrumb-item>调度单管理</el-breadcrumb-item>
-        <el-breadcrumb-item>调度单列表</el-breadcrumb-item>
+        <el-breadcrumb-item>出料单管理</el-breadcrumb-item>
+        <el-breadcrumb-item>出料单统计</el-breadcrumb-item>
       </el-breadcrumb>
     </el-col>
 
@@ -32,7 +32,7 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="[调度单明细]">
+              <el-form-item label="[出料单明细]">
                 <span>{{ props.row.description }}</span>
               </el-form-item>
             </el-form>

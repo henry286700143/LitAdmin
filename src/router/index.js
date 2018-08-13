@@ -11,6 +11,7 @@ import UserChangePwd from '@/components/user/changepwd'
 import UserProfile from '@/components/user/profile'
 
 import ShipmentList from '@/components/shipment/list'
+import ShipmentCountList from '@/components/shipmentcount/list'
 import ManageList from '@/components/manage/list'
 
 // 懒加载方式，当路由被访问的时候才加载对应组件
@@ -67,7 +68,8 @@ let router = new Router({
       menuShow: true,
       iconCls: 'iconfont icon-books',
       children: [
-        {path: '/shipment/list', component: ShipmentList, name: '出料单列表', menuShow: true}
+        {path: '/shipment/list', component: ShipmentList, name: '出料单列表', menuShow: true},
+        {path: '/shipmentcount/list', component: ShipmentCountList, name: '出料单统计', menuShow: true}
       ]
     },
     {

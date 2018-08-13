@@ -1,6 +1,6 @@
 /**
  * Created by henry on 2018/08/11.
- * 图书相关api
+ * 出料单相关api
  */
 import * as API from './'
 

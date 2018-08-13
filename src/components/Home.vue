@@ -9,7 +9,7 @@
         <a href="/"><img src="../assets/logotxt.png"></a>
       </div>
       <div class="topbar-title">
-        <span style="font-size: 18px;color: #fff;">后台管理系统</span>
+        <span style="font-size: 18px;color: #fff;">富力通数据统计系统</span>
       </div>
       <div class="topbar-account topbar-btn">
         <el-dropdown trigger="click">

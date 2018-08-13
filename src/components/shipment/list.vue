@@ -3,8 +3,8 @@
     <el-col :span="24" class="warp-breadcrum">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/' }"><b>首页</b></el-breadcrumb-item>
-        <el-breadcrumb-item>图书管理</el-breadcrumb-item>
-        <el-breadcrumb-item>图书列表</el-breadcrumb-item>
+        <el-breadcrumb-item>出料单管理</el-breadcrumb-item>
+        <el-breadcrumb-item>出料单列表</el-breadcrumb-item>
       </el-breadcrumb>
     </el-col>
 
@@ -13,7 +13,7 @@
       <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
         <el-form :inline="true" :model="filters">
           <el-form-item>
-            <el-input v-model="filters.name" placeholder="书名" @keyup.enter.native="handleSearch"></el-input>
+            <el-input v-model="filters.name" placeholder="单号" @keyup.enter.native="handleSearch"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" v-on:click="handleSearch">查询</el-button>
@@ -32,15 +32,16 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="[图书简介]">
+              <el-form-item label="[出料单明细]">
                 <span>{{ props.row.description }}</span>
               </el-form-item>
             </el-form>
           </template>
         </el-table-column>
-        <el-table-column prop="name" label="书名" sortable></el-table-column>
-        <el-table-column prop="author" label="作者" width="100" sortable></el-table-column>
-        <el-table-column prop="publishAt" label="出版日期" width="150" sortable></el-table-column>
+        <el-table-column prop="address" label="工程名称及浇筑部位" sortable></el-table-column>
+        <el-table-column prop="project" label="施工单位" width="150" sortable></el-table-column>
+        <el-table-column prop="label" label="标号" width="100" sortable></el-table-column>
+        <el-table-column prop="driver" label="司机" width="100" sortable></el-table-column>
         <el-table-column label="操作" width="150">
           <template slot-scope="scope">
             <el-button size="small" @click="showEditDialog(scope.$index,scope.row)">编辑</el-button>
@@ -59,16 +60,16 @@
 
       <el-dialog title="编辑" :visible.sync ="editFormVisible" :close-on-click-modal="false">
         <el-form :model="editForm" label-width="100px" :rules="editFormRules" ref="editForm">
-          <el-form-item label="书名" prop="name">
+          <el-form-item label="地址" prop="name">
             <el-input v-model="editForm.name" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="作者" prop="author">
+          <el-form-item label="作者1" prop="author">
             <el-input v-model="editForm.author" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="出版日期">
+          <el-form-item label="出版日期1">
             <el-date-picker type="date" placeholder="选择日期" v-model="editForm.publishAt"></el-date-picker>
           </el-form-item>
-          <el-form-item label="简介" prop="description">
+          <el-form-item label="简介1" prop="description">
             <el-input type="textarea" v-model="editForm.description" :rows="8"></el-input>
           </el-form-item>
         </el-form>
@@ -81,17 +82,50 @@
       <!--新增界面-->
       <el-dialog title="新增" :visible.sync ="addFormVisible" :close-on-click-modal="false">
         <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-          <el-form-item label="书名" prop="name">
-            <el-input v-model="addForm.name" auto-complete="off"></el-input>
+          <el-form-item label="工程名称及浇筑部位" prop="name">
+            <el-input v-model="addForm.address" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="作者" prop="author">
-            <el-input v-model="addForm.author" auto-complete="off"></el-input>
+          <el-form-item label="施工单位" prop="author">
+            <el-input v-model="addForm.project" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="出版日期">
-            <el-date-picker type="date" placeholder="选择日期" v-model="addForm.publishAt"></el-date-picker>
+          <el-form-item label="标号" prop="author">
+            <el-input v-model="addForm.label" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="简介" prop="description">
-            <el-input type="textarea" v-model="addForm.description" :rows="8"></el-input>
+          <el-form-item label="浇筑方式" prop="author">
+            <el-input v-model="addForm.pouringType" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="信息1" prop="author">
+            <el-input v-model="addForm.infomation1" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="信息2" prop="author">
+            <el-input v-model="addForm.infomation2" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="编码" prop="author">
+            <el-input v-model="addForm.codeNum" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="配合比" prop="author">
+            <el-input v-model="addForm.mixRatio" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="信息3" prop="author">
+            <el-input v-model="addForm.infomation3" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="车号" prop="author">
+            <el-input v-model="addForm.CarNum" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="信息4" prop="author">
+            <el-input v-model="addForm.infomation4" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="司机" prop="author">
+            <el-input v-model="addForm.driver" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="时间" prop="author">
+            <el-date-picker v-model="addForm.dateTime" type="datetime" placeholder="选择日期时间" auto-complete="off"></el-date-picker>
+          </el-form-item>
+          <el-form-item label="信息5" prop="description">
+            <el-input v-model="addForm.infomation5" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="调度" prop="description">
+            <el-input v-model="addForm.manager" auto-complete="off"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -105,7 +139,7 @@
 </template>
 <script>
   import util from '../../common/util'
-  import API from '../../api/api_book';
+  import API from '../../api/api_shipment';
 
   export default{
     data(){
@@ -123,43 +157,137 @@
         //编辑相关数据
         editFormVisible: false,//编辑界面是否显示
         editFormRules: {
-          name: [
-            {required: true, message: '请输入书名', trigger: 'blur'}
+          address: [
+            {required: true, message: '工程名称及浇筑部位', trigger: 'blur'}
           ],
-          author: [
-            {required: true, message: '请输入作者', trigger: 'blur'}
+          project: [
+            {required: true, message: '施工单位', trigger: 'blur'}
           ],
-          description: [
-            {required: true, message: '请输入简介', trigger: 'blur'}
+          label: [
+            {required: true, message: '标号', trigger: 'blur'}
+          ],
+          pouringType: [
+            {required: true, message: '浇筑方式', trigger: 'blur'}
+          ],
+          infomation1: [
+            {required: true, message: '信息1', trigger: 'blur'}
+          ],
+          infomation2: [
+            {required: true, message: '信息2', trigger: 'blur'}
+          ],
+          codeNum: [
+            {required: true, message: '编码', trigger: 'blur'}
+          ],
+          mixRatio: [
+            {required: true, message: '配合比', trigger: 'blur'}
+          ],
+          infomation3: [
+            {required: true, message: '信息3', trigger: 'blur'}
+          ],
+          CarNum: [
+            {required: true, message: '车号', trigger: 'blur'}
+          ],
+          infomation4: [
+            {required: true, message: '信息4', trigger: 'blur'}
+          ],
+          driver: [
+            {required: true, message: '司机', trigger: 'blur'}
+          ],
+          dateTime: [
+            {required: true, message: '时间', trigger: 'blur'}
+          ],
+          infomation5: [
+            {required: true, message: '信息5', trigger: 'blur'}
+          ],
+          manager: [
+            {required: true, message: '调度', trigger: 'blur'}
           ]
         },
         editForm: {
           id: 0,
-          name: '',
-          author: '',
-          publishAt: '',
-          description: ''
+          address: '',
+          project: '',
+          label: '',
+          pouringType: '',
+          infomation1: '',
+          infomation2: '',
+          codeNum: '',
+          mixRatio: '',
+          infomation3: '',
+          CarNum: '',
+          infomation4: '',
+          driver: '',
+          dateTime: '',
+          infomation5: '',
+          manager: ''
         },
 
         //新增相关数据
         addFormVisible: false,//新增界面是否显示
         addLoading: false,
         addFormRules: {
-          name: [
-            {required: true, message: '请输入书名', trigger: 'blur'}
+          address: [
+            {required: true, message: '工程名称及浇筑部位', trigger: 'blur'}
           ],
-          author: [
-            {required: true, message: '请输入作者', trigger: 'blur'}
+          project: [
+            {required: true, message: '施工单位', trigger: 'blur'}
           ],
-          description: [
-            {required: true, message: '请输入简介', trigger: 'blur'}
+          label: [
+            {required: true, message: '标号', trigger: 'blur'}
+          ],
+          pouringType: [
+            {required: true, message: '浇筑方式', trigger: 'blur'}
+          ],
+          infomation1: [
+            {required: true, message: '信息1', trigger: 'blur'}
+          ],
+          infomation2: [
+            {required: true, message: '信息2', trigger: 'blur'}
+          ],
+          codeNum: [
+            {required: true, message: '编码', trigger: 'blur'}
+          ],
+          mixRatio: [
+            {required: true, message: '配合比', trigger: 'blur'}
+          ],
+          infomation3: [
+            {required: true, message: '信息3', trigger: 'blur'}
+          ],
+          CarNum: [
+            {required: true, message: '车号', trigger: 'blur'}
+          ],
+          infomation4: [
+            {required: true, message: '信息4', trigger: 'blur'}
+          ],
+          driver: [
+            {required: true, message: '司机', trigger: 'blur'}
+          ],
+          dateTime: [
+            {required: true, message: '时间', trigger: 'blur'}
+          ],
+          infomation5: [
+            {required: true, message: '信息5', trigger: 'blur'}
+          ],
+          manager: [
+            {required: true, message: '调度', trigger: 'blur'}
           ]
         },
         addForm: {
-          name: '',
-          author: '',
-          publishAt: '',
-          description: ''
+          address: '',
+          project: '',
+          label: '',
+          pouringType: '',
+          infomation1: '',
+          infomation2: '',
+          codeNum: '',
+          mixRatio: '',
+          infomation3: '',
+          CarNum: '',
+          infomation4: '',
+          driver: '',
+          dateTime: '',
+          infomation5: '',
+          manager: ''
         }
       }
     },
@@ -234,7 +362,7 @@
           if (valid) {
             this.loading = true;
             let para = Object.assign({}, this.editForm);
-            para.publishAt = (!para.publishAt || para.publishAt == '') ? '' : util.formatDate.format(new Date(para.publishAt), 'yyyy-MM-dd');
+            para.dateTime = (!para.dateTime || para.dateTime == '') ? '' : util.formatDate.format(new Date(para.dateTime), 'yyyy-MM-dd hh24:mm:ss');
             API.update(para.id, para).then(function (result) {
               that.loading = false;
               if (result && parseInt(result.errcode) === 0) {
@@ -259,10 +387,21 @@
       showAddDialog: function () {
         this.addFormVisible = true;
         this.addForm = {
-          name: '',
-          author: '',
-          publishAt: '',
-          description: ''
+          address: '',
+          project: '',
+          label: '',
+          pouringType: '',
+          infomation1: '',
+          infomation2: '',
+          codeNum: '',
+          mixRatio: '',
+          infomation3: '',
+          CarNum: '',
+          infomation4: '',
+          driver: '',
+          dateTime: '',
+          infomation5: '',
+          manager: ''
         };
       },
       //新增
@@ -272,7 +411,7 @@
           if (valid) {
             that.loading = true;
             let para = Object.assign({}, this.addForm);
-            para.publishAt = (!para.publishAt || para.publishAt === '') ? '' : util.formatDate.format(new Date(para.publishAt), 'yyyy-MM-dd');
+            para.dateTime = (!para.dateTime || para.dateTime === '') ? '' : util.formatDate.format(new Date(para.dateTime), 'yyyy-MM-dd hh24:mm:ss');
             API.add(para).then(function (result) {
               that.loading = false;
               if (result && parseInt(result.errcode) === 0) {
